@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+body {
+  animation: grow 0.7s;
+}
+
+@keyframes grow {
+    0% { transform: scale(.9); }
+  100% { transform: scale(1); }
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  color: #999999;
+}
+
+a {
+  text-decoration: none;
+  margin: 1rem 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.3vh;
+  letter-spacing: 1px;
+}
+
+p {
+  width: 5vh;
+  font-size: 1.6vh;
+  line-height: 1.5;
+}
+
+section {
+  margin: 0 auto;
+  text-align: center;
+  padding: 3.17vh;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #333333;
+  font-size: 1.825vh;
+  margin: 1.3vh 0;
+}
+
+.section-lead {
+  max-width: 600vh;
+  margin: 1vh auto 1.5vh;
+}
+
+.service a {
+  color: #999999;
+  display: block;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.service h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #000000;
+  font-size: 2.45vh;
+  margin: 1vh 0 0.6vh;
+}
+
+.services-grid {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+  
+.service {
+  height: 80vh;
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 6vh;
+  border-radius: 4vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 0.5vh solid transparent;
+  transition: all 0.3s ease;
+  margin: 5vh;
+}
+
+.service:hover {
+  -webkit-box-shadow: 0 0.5vh 4.233vh rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 0.5vh 4.233vh rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.5vh 4.233vh rgba(0, 0, 0, 0.08);
+}
+
+.service i {
+  font-size: 7vh;
+  margin: 1vh 0;
+}
+
+.service .cta span {
+  font-size: 0.6vh;
+}
+
+.service > * {
+  flex: 1 1 100%;
+}
+
+.service .cta {
+  align-self: flex-end;
+}
+
+@media all and (max-width: 95.24vh) {
+  .services-grid {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+      background: #222222;
+  }
+
+  .service {
+      background-color: #2e2e2e;
+  }
+
+  .service h4 {
+      color: #ffffff;
+  }
+
+  .service:hover {
+      -webkit-box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
+      -moz-box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
+      box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
+  }
+}
