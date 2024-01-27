@@ -1,0 +1,6 @@
+[submodule "kindle-paperwhite-clock"]
+	path = kindle-paperwhite-clock
+	url = https://github.com/Crucial-hash/kindle-paperwhite-clock
+[submodule "f1-random-quote-display"]
+	path = f1-random-quote-display
+	url = https://github.com/Crucial-hash/f1-random-quote-display
