@@ -19,13 +19,18 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+      - name: Fetch All Branches
+        run: git fetch --all
+
       - name: Merge PR
         run: |
-          git checkout ${{ github.event.pull_request.head.ref }}
-          git merge --no-ff ${{ github.event.pull_request.base.ref }}
-          git push origin ${{ github.event.pull_request.head.ref }}
+          BRANCH_NAME=${{ github.event.pull_request.head.ref }}
+          BASE_BRANCH=${{ github.event.pull_request.base.ref }}
+          git checkout $BRANCH_NAME
+          git merge --no-ff $BASE_BRANCH
+          git push origin $BRANCH_NAME
 
       - name: Delete Branch
         run: |
-          BRANCH=${{ github.event.pull_request.head.ref }}
-          git push origin --delete $BRANCH
+          BRANCH_NAME=${{ github.event.pull_request.head.ref }}
+          git push origin --delete $BRANCH_NAME
