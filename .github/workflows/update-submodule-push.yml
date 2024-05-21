@@ -1,11 +1,10 @@
-name: Send submodule updates to parent repo
+name: Update Submodules
 
 on:
+  workflow_dispatch:
   push:
-    branches: 
+    branches:
       - main
-  schedule:
-    - cron: '* * * * *'
 
 jobs:
   update:
@@ -13,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with: 
+        with:
           repository: Crucial-hash/crucial
           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
           submodules: true
