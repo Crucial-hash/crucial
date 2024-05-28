@@ -4,11 +4,6 @@ body {
   animation: grow 0.7s;
 }
 
-@keyframes grow {
-    0% { transform: scale(.9); }
-  100% { transform: scale(1); }
-}
-
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -114,6 +109,11 @@ h3 {
 
 .service .cta {
   align-self: flex-end;
+}
+
+@keyframes grow {
+  0% { transform: scale(.9); }
+100% { transform: scale(1); }
 }
 
 @media all and (max-width: 95.24vh) {
