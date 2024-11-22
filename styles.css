@@ -10,12 +10,14 @@ body {
 
 html {
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   color: #999999;
+  overflow-x: hidden;
 }
 
 a {
@@ -28,9 +30,10 @@ a {
 }
 
 p {
-  width: 5vh;
+  /* width: 45vh; */
   font-size: 1.6vh;
   line-height: 1.5;
+  font-weight: 400;
 }
 
 section {
@@ -64,7 +67,8 @@ h3 {
   font-weight: 600;
   color: #000000;
   font-size: 2.45vh;
-  margin: 1vh 0 0.6vh;
+  margin-bottom: 1vh;
+  font-size: 2.3vh;
 }
 
 .services-grid {
@@ -86,6 +90,10 @@ h3 {
   border: 0.5vh solid transparent;
   transition: all 0.3s ease;
   margin: 5vh;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  text-transform: none;
 }
 
 .service:hover {
@@ -97,10 +105,12 @@ h3 {
 .service i {
   font-size: 7vh;
   margin: 1vh 0;
+  margin-bottom: -1.9vh;
 }
 
 .service .cta span {
   font-size: 0.6vh;
+  text-decoration: underline;
 }
 
 .service > * {
@@ -109,6 +119,11 @@ h3 {
 
 .service .cta {
   align-self: flex-end;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: auto;
+  margin-bottom: 1.7vh;
 }
 
 @keyframes grow {
@@ -141,4 +156,12 @@ h3 {
       box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
   }
 }
+
+/* .service p {
+  width: 5vh;
+  font-size: 1.4vh;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0.5vh 0;
+} */
 
