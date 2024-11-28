@@ -25,13 +25,11 @@ a {
   margin: 1rem 0;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 1.3vh;
-  letter-spacing: 1px;
+  font-size: 1.45vh;
 }
 
 p {
-  /* width: 45vh; */
-  font-size: 1.6vh;
+  font-size: 1.63vh;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -68,7 +66,7 @@ h3 {
   color: #000000;
   font-size: 2.45vh;
   margin-bottom: 1vh;
-  font-size: 2.3vh;
+  font-size: 2.6vh;
 }
 
 .services-grid {
@@ -131,7 +129,7 @@ h3 {
 100% { transform: scale(1); }
 }
 
-@media all and (max-width: 95.24vh) {
+@media all and (max-width: 130vh) {
   .services-grid {
     flex-direction: column;
   }
@@ -156,12 +154,3 @@ h3 {
       box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
   }
 }
-
-/* .service p {
-  width: 5vh;
-  font-size: 1.4vh;
-  line-height: 1.5;
-  font-weight: 400;
-  margin: 0.5vh 0;
-} */
-
