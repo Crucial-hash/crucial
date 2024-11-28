@@ -19,14 +19,13 @@ a {
   margin: 1rem 0;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 1.3vh;
-  letter-spacing: 1px;
+  font-size: 1.45vh;
 }
 
 p {
-  width: 5vh;
-  font-size: 1.6vh;
+  font-size: 1.63vh;
   line-height: 1.5;
+  font-weight: 400;
 }
 
 section {
@@ -82,7 +81,8 @@ h3 {
   font-weight: 600;
   color: #000000;
   font-size: 2.45vh;
-  margin: 1vh 0 0.6vh;
+  margin-bottom: 1vh;
+  font-size: 2.6vh;
 }
 
 .services-grid {
@@ -90,7 +90,7 @@ h3 {
   align-items: stretch;
   justify-content: space-evenly;
 }
-
+  
 .service {
   height: 80vh;
   flex: 1;
@@ -104,6 +104,10 @@ h3 {
   border: 0.5vh solid transparent;
   transition: all 0.3s ease;
   margin: 5vh;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  text-transform: none;
 }
 
 .service:hover {
@@ -115,10 +119,12 @@ h3 {
 .service i {
   font-size: 7vh;
   margin: 1vh 0;
+  margin-bottom: -1.9vh;
 }
 
 .service .cta span {
   font-size: 0.6vh;
+  text-decoration: underline;
 }
 
 .service > * {
@@ -127,6 +133,11 @@ h3 {
 
 .service .cta {
   align-self: flex-end;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: auto;
+  margin-bottom: 1.7vh;
 }
 
 @keyframes grow {
@@ -138,7 +149,7 @@ h3 {
 box-sizing: inherit;
 }
 
-@media all and (max-width: 95.24vh) {
+@media all and (max-width: 130vh) {
   .services-grid {
     flex-direction: column;
   }
