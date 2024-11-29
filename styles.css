@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   animation: grow 0.7s;
 }
@@ -129,13 +133,14 @@ h3 {
 100% { transform: scale(1); }
 }
 
-@media all and (max-width: 195vh) {
+@media all and (max-width: 180vh) {
   .services-grid {
     flex-direction: column;
   }
   
   .service {
-    height: 60vh;
+    height: auto;
+    min-height: 40vh;
     margin: 2vh;
     padding: 3vh;
   }
@@ -160,6 +165,19 @@ h3 {
 
   .service .cta {
     margin-bottom: 1vh;
+  }
+
+  .service2 {
+    height: auto;
+    min-height: 40vh;
+  }
+
+  .service2 table {
+    margin-bottom: 4vh;
+  }
+
+  .service2 .cta {
+    margin: 0 1.5vh;
   }
 }
 
