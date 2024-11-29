@@ -20,7 +20,7 @@ function setupIcons() {
         setLight();
       }
     }
-    matcher.addListener(onUpdate);
+    matcher.addEventListener('change', onUpdate);
     onUpdate();
   }
 
