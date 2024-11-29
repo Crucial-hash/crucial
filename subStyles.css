@@ -4,14 +4,20 @@ body {
   animation: grow 0.7s;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 html {
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   color: #999999;
+  overflow-x: hidden;
 }
 
 a {
@@ -40,28 +46,6 @@ h3 {
   color: #333333;
   font-size: 1.825vh;
   margin: 1.3vh 0;
-}
-
-.centered {
-  text-align: center;
-}
-
-.full-width {
-  width: 100%;
-  text-align: center;
-}
-
-.service2 table tr:not(:first-child) {
-  margin-bottom: 2vh;
-}
-
-.service2 table {
-  margin-bottom: 12vh;
-}
-
-.service2 .cta {
-  display: inline-block;
-  margin: 0 3vh;
 }
 
 .section-lead {
@@ -117,7 +101,7 @@ h3 {
 }
 
 .service i {
-  font-size: 7vh;
+  font-size: 9vh;
   margin: 1vh 0;
   margin-bottom: -1.9vh;
 }
@@ -145,13 +129,54 @@ h3 {
 100% { transform: scale(1); }
 }
 
-*, *:before, *:after {
-box-sizing: inherit;
-}
-
-@media all and (max-width: 130vh) {
+@media all and (max-width: 195vh) {
   .services-grid {
     flex-direction: column;
+  }
+  
+  /* Reduce service box height and margins */
+  .service {
+    height: 60vh;
+    margin: 2vh;
+    padding: 3vh;
+  }
+
+  /* Reduce text sizes */
+  .service h4 {
+    font-size: 1.8vh;
+    margin-bottom: 0.5vh;
+  }
+
+  p {
+    font-size: 1.3vh;
+  }
+
+  a {
+    font-size: 1.2vh;
+  }
+
+  /* Reduce icon size */
+  .service i {
+    font-size: 6vh;
+    margin-bottom: -1vh;
+  }
+
+  /* Adjust CTA spacing */
+  .service .cta {
+    margin-bottom: 1vh;
+  }
+
+  /* Additional adjustments for service2 specific elements */
+  .service2 table {
+    margin-bottom: 6vh;  /* Reduced from 12vh */
+  }
+
+  .service2 .cta {
+    margin: 0 1.5vh;  /* Reduced from 3vh */
+  }
+
+  .service2 table tr:not(:first-child) {
+    margin-bottom: 1vh;  /* Reduced from 2vh */
   }
 }
 
@@ -173,4 +198,26 @@ box-sizing: inherit;
       -moz-box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
       box-shadow: 0 0.5vh 4.233vh rgba(20, 20, 20, 1);
   }
+}
+
+.centered {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.service2 table tr:not(:first-child) {
+  margin-bottom: 2vh;
+}
+
+.service2 table {
+  margin-bottom: 12vh;
+}
+
+.service2 .cta {
+  display: inline-block;
+  margin: 0 3vh;
 }
