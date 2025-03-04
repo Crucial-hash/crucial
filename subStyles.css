@@ -285,3 +285,7 @@ a.service .back-button {
   -webkit-tap-highlight-color: transparent;
   background: transparent;
 }
+
+.service2 {
+  font-size: 0.9em; /* Adjust the value as needed */
+}
