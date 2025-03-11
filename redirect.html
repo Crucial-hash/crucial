@@ -1,95 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waiting for Server...</title>
-    <style>
-        :root {
-            --bg-light: #f5f5f5;
-            --text-light: #333333;
-            --bg-dark: #222;
-            --text-dark: #cccccc;
-            --primary-color: #555555;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Monitor</title>
+  <style>
+    :root {
+      --bg-light: #f5f5f5;
+      --text-light: #333333;
+      --bg-dark: #222;
+      --text-dark: #cccccc;
+      --primary-color: #555555;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            transition: background 0.3s, color 0.3s;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
 
-        p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
+    #waitingMessage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: inherit;
+      color: inherit;
+      z-index: 2;
+    }
 
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: var(--primary-color);
-            color: white;
-            transition: opacity 0.2s;
-        }
+    #waitingMessage h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
 
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+    #waitingMessage p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
 
-        .dark-mode {
-            background-color: var(--bg-dark);
-            color: var(--text-dark);
-        }
-    </style>
-    <script>
-        function checkServer() {
-            fetch("http://192.168.0.20:5000", { mode: "no-cors" })
-            .then(() => {
-                window.location.href = "http://192.168.0.20:5000";
-            })
-            .catch(() => {
-                setTimeout(checkServer, 3000); // Retry after 3 seconds
-            });
-        }
+    #waitingMessage button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      color: white;
+      transition: opacity 0.2s;
+    }
 
-        function detectTheme() {
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            if (prefersDark) {
-                document.body.classList.add("dark-mode");
-            }
-        }
+    #waitingMessage button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-        function manualRedirect() {
-            window.location.href = "http://192.168.0.20:5000";
-        }
+    /* The iframe will cover the whole viewport when shown */
+    #serverFrame {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+  <script>
+    // Detect system dark mode and add the dark-mode class if needed
+    function detectTheme() {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (prefersDark) {
+        document.body.classList.add("dark-mode");
+      }
+    }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            detectTheme();
-            setTimeout(checkServer, 1000); // Start checking after 1 second
+    // Check if the server is online
+    function checkServer() {
+      fetch("http://192.168.0.20:5000", { mode: "no-cors" })
+        .then(() => {
+          // Server is online: show the iframe and hide the waiting message
+          document.getElementById("serverFrame").style.display = "block";
+          document.getElementById("waitingMessage").style.display = "none";
+          // If the iframe hasn't been loaded yet, set its src
+          const serverFrame = document.getElementById("serverFrame");
+          if (!serverFrame.src) {
+            serverFrame.src = "http://192.168.0.20:5000";
+          }
+        })
+        .catch(() => {
+          // Server is offline: hide the iframe and show the waiting message
+          document.getElementById("serverFrame").style.display = "none";
+          document.getElementById("waitingMessage").style.display = "flex";
         });
-    </script>
+    }
+
+    // Manual refresh button to try loading the server immediately
+    function manualRedirect() {
+      document.getElementById("serverFrame").src = "http://192.168.0.20:5000";
+      checkServer();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      detectTheme();
+      // Check connectivity immediately and then every 3 seconds
+      checkServer();
+      setInterval(checkServer, 3000);
+    });
+  </script>
 </head>
 <body>
+  <div id="waitingMessage">
     <h1>Waiting for the server...</h1>
     <p>The page will load automatically when available.</p>
     <button onclick="manualRedirect()">Try Now</button>
+  </div>
+  <iframe id="serverFrame"></iframe>
 </body>
 </html>
