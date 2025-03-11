@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Server...</title>
+    <style>
+        :root {
+            --bg-light: #f5f5f5;
+            --text-light: #333;
+            --bg-dark: #222;
+            --text-dark: #ccc;
+            --primary-color: #007bff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+    </style>
+    <script>
+        function checkServer() {
+            fetch("http://192.168.0.20:5000", { mode: "no-cors" })
+            .then(() => {
+                window.location.href = "http://192.168.0.20:5000";
+            })
+            .catch(() => {
+                setTimeout(checkServer, 3000); // Retry after 3 seconds
+            });
+        }
+
+        function detectTheme() {
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (prefersDark) {
+                document.body.classList.add("dark-mode");
+            }
+        }
+
+        function manualRedirect() {
+            window.location.href = "http://192.168.0.20:5000";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            detectTheme();
+            setTimeout(checkServer, 1000); // Start checking after 1 second
+        });
+    </script>
+</head>
+<body>
+    <h1>Waiting for the server...</h1>
+    <p>The page will load automatically when available.</p>
+    <button onclick="manualRedirect()">Try Now</button>
+</body>
+</html>
