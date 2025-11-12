@@ -4,7 +4,9 @@
 [submodule "f1-random-quote-display"]
 	path = f1-random-quote-display
 	url = https://github.com/Crucial-hash/f1-random-quote-display
-
 [submodule "local-media-display"]
 	path = local-media-display
 	url = https://github.com/Crucial-hash/local-media-display
+[submodule "keyboards"]
+	path = keyboards
+	url = https://github.com/Crucial-hash/keyboards
