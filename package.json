@@ -1,0 +1,35 @@
+{
+  "name": "crucial",
+  "version": "1.0.0",
+  "description": "All Of My Websites.",
+  "main": "script.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crucial-hash/crucial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Crucial-hash/crucial/issues"
+  },
+  "homepage": "https://github.com/Crucial-hash/crucial#readme",
+  "dependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "chromedriver": "^142.0.3",
+    "selenium-webdriver": "^4.38.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "http-server": "^14.1.1",
+    "playwright": "^1.56.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
