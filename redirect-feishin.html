@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Monitor</title>
+  <style>
+    :root {
+      --bg-light: #f5f5f5;
+      --text-light: #333333;
+      --bg-dark: #1a1a1a;
+      --text-dark: #cccccc;
+      --primary-color: #555555;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    #waitingMessage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: inherit;
+      color: inherit;
+      z-index: 2;
+    }
+
+    #waitingMessage h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    #waitingMessage p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    #waitingMessage button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      color: white;
+      transition: opacity 0.2s;
+    }
+
+    #waitingMessage button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+  </style>
+  <script>
+    const TARGET_URL = "http://192.168.0.20:4333";
+    let alreadyRedirecting = false;
+
+    // Detect system dark mode and add the dark-mode class if needed
+    function detectTheme() {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (prefersDark) {
+        document.body.classList.add("dark-mode");
+      }
+    }
+
+    function redirectToServer() {
+      if (alreadyRedirecting) return;
+      alreadyRedirecting = true;
+      // Top-level navigation allows the browser to show the Basic Auth prompt.
+      window.location.replace(TARGET_URL);
+    }
+
+    // Check if the server is online
+    function checkServer() {
+      fetch(TARGET_URL, { mode: "no-cors" })
+        .then(() => redirectToServer())
+        .catch(() => {
+          // Server is offline: keep showing the waiting message
+          alreadyRedirecting = false;
+          document.getElementById("waitingMessage").style.display = "flex";
+        });
+    }
+
+    // Manual refresh button to try loading the server immediately
+    function manualRedirect() {
+      redirectToServer();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      detectTheme();
+      // Check connectivity immediately and then every 3 seconds
+      checkServer();
+      setInterval(checkServer, 3000);
+    });
+  </script>
+</head>
+<body>
+  <div id="waitingMessage">
+    <h1>Waiting for Feishin...</h1>
+    <p>The page will open as soon as it responds.</p>
+    <button onclick="manualRedirect()">Open Now</button>
+  </div>
+</body>
+</html>
+
+
+
+
