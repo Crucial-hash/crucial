@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Local Media Display</title>
+  <title>Launcher</title>
   <style>
     :root {
       --bg-light: #f5f5f5;
@@ -64,6 +64,12 @@
       max-width: 320px;
     }
 
+    .option {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     button {
       width: 100%;
       padding: 12px 16px;
@@ -107,18 +113,9 @@
       transition: background-color 0.7s ease;
     }
 
-    .online .dot {
-      background-color: #2ecc71;
-    }
-
-    .offline .dot {
-      background-color: #e74c3c;
-    }
-
-    .checking .dot {
-      background-color: #f1c40f;
-      animation: pulse 1s ease-in-out infinite;
-    }
+    .online .dot { background-color: #2ecc71; }
+    .offline .dot { background-color: #e74c3c; }
+    .checking .dot { background-color: #f1c40f; animation: pulse 1s ease-in-out infinite; }
 
     .status.transitioning {
       opacity: 0.45;
@@ -131,9 +128,7 @@
       100% { transform: scale(1); opacity: 0.8; }
     }
 
-    small {
-      opacity: 0.7;
-    }
+    small { opacity: 0.7; }
 
     .scaled {
       transform: scale(1.1);
@@ -143,7 +138,6 @@
   <script>
     const MIN_CHECK_DURATION = 900; // ms
     const TRANSITION_SETTLE = 500; // ms
-    const TARGET = { id: "status-5000", url: "http://192.168.0.20:5000", label: "Local Media Display" };
 
     function detectTheme() {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -168,50 +162,64 @@
         .finally(() => clearTimeout(timer));
     }
 
-    function checkEndpoint() {
-      setStatus(TARGET.id, "checking");
-      const el = document.getElementById(TARGET.id);
-      if (el) el.classList.add("transitioning");
-      const started = performance.now();
-      let nextState = "checking";
-      ping(TARGET.url)
-        .then(() => { nextState = "online"; })
-        .catch(() => { nextState = "offline"; })
-        .finally(() => {
-          const elapsed = performance.now() - started;
-          const remaining = Math.max(0, MIN_CHECK_DURATION - elapsed);
-          setTimeout(() => {
-            setStatus(TARGET.id, nextState);
-            const target = document.getElementById(TARGET.id);
-            if (target) {
-              setTimeout(() => target.classList.remove("transitioning"), TRANSITION_SETTLE);
-            }
-          }, remaining);
-        });
+    function checkEndpoints() {
+      const endpoints = [
+        { id: "status-4333", url: "http://192.168.0.20:4333", label: "Feishin Remote" },
+        { id: "status-5000", url: "http://192.168.0.20:5000", label: "Local Media Display" },
+      ];
+
+      endpoints.forEach(({ id, url }) => {
+        setStatus(id, "checking");
+        const el = document.getElementById(id);
+        if (el) el.classList.add("transitioning");
+        const started = performance.now();
+        let nextState = "checking";
+        ping(url)
+          .then(() => { nextState = "online"; })
+          .catch(() => { nextState = "offline"; })
+          .finally(() => {
+            const elapsed = performance.now() - started;
+            const remaining = Math.max(0, MIN_CHECK_DURATION - elapsed);
+            setTimeout(() => {
+              setStatus(id, nextState);
+              const target = document.getElementById(id);
+              if (target) {
+                setTimeout(() => target.classList.remove("transitioning"), TRANSITION_SETTLE);
+              }
+            }, remaining);
+          });
+      });
     }
 
-    function goTo() {
-      window.location.href = TARGET.url;
+    function goTo(url) {
+      window.location.href = url;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       detectTheme();
-      checkEndpoint();
-      setInterval(checkEndpoint, 12000);
+      checkEndpoints();
+      setInterval(checkEndpoints, 12000);
     });
   </script>
 </head>
 <body>
   <div class="container scaled">
-    <h1>Local Media Display</h1>
-    <p>Launch the local media display.</p>
+    <h1>Select a destination</h1>
+    <p>Choose where you want to go.</p>
     <div class="button-group">
-      <button onclick="goTo()">
-        Open Media Display
-      </button>
-      <div class="status checking" id="status-5000">
-        <span class="dot"></span>
-        <span class="label">Checking...</span>
+      <div class="option">
+        <button onclick="goTo('http://192.168.0.20:4333')">Feishin Remote</button>
+        <div class="status checking" id="status-4333">
+          <span class="dot"></span>
+          <span class="label">Checking...</span>
+        </div>
+      </div>
+      <div class="option">
+        <button onclick="goTo('http://192.168.0.20:5000')">Local Media Display</button>
+        <div class="status checking" id="status-5000">
+          <span class="dot"></span>
+          <span class="label">Checking...</span>
+        </div>
       </div>
     </div>
     <small>Links open in this tab.</small>
